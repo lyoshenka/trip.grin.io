@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Grins' World Tour</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      padding: 4rem 1.5rem 3rem;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #6ec6ff, #c084fc, #fb923c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .timeline-wrapper {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    .region-section {
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+      min-height: 200px;
+    }
+
+    /* Sticky continent label on the left */
+    .region-label {
+      width: 200px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 2rem;
+      align-self: flex-start;
+      padding: 1rem 0;
+      z-index: 10;
+    }
+
+    .region-label h2 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .region-label .dates-range {
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-top: 0.4rem;
+      opacity: 0.5;
+    }
+
+    /* Region colors */
+    .region-europe .region-label h2 { color: #6ec6ff; }
+    .region-europe .region-label .dates-range { color: #6ec6ff; }
+    .region-europe .entries::before { background: rgba(110, 198, 255, 0.25); }
+    .region-europe .entry::before { background: #6ec6ff; }
+    .region-europe .entry .dates { color: #6ec6ff; }
+
+    .region-central-america .region-label h2 { color: #fb923c; }
+    .region-central-america .region-label .dates-range { color: #fb923c; }
+    .region-central-america .entries::before { background: rgba(251, 146, 60, 0.25); }
+    .region-central-america .entry::before { background: #fb923c; }
+    .region-central-america .entry .dates { color: #fb923c; }
+
+    .region-asia .region-label h2 { color: #c084fc; }
+    .region-asia .region-label .dates-range { color: #c084fc; }
+    .region-asia .entries::before { background: rgba(192, 132, 252, 0.25); }
+    .region-asia .entry::before { background: #c084fc; }
+    .region-asia .entry .dates { color: #c084fc; }
+
+    /* Right side: entries column */
+    .entries {
+      flex: 1;
+      position: relative;
+      padding: 0.5rem 0 2rem 2.5rem;
+    }
+
+    .entries::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      border-radius: 3px;
+    }
+
+    .entry {
+      position: relative;
+      padding: 1rem 0 1.5rem;
+    }
+
+    .entry::before {
+      content: '';
+      position: absolute;
+      left: -2.5rem;
+      top: 1.35rem;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      transform: translateX(-4px);
+    }
+
+    .entry .dates {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.2rem;
+    }
+
+    .entry .title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #f0f0f0;
+    }
+
+    .entry .subtitle {
+      font-size: 0.88rem;
+      color: #666;
+      margin-top: 0.1rem;
+    }
+
+    .entry.unknown .title {
+      color: #555;
+      font-style: italic;
+    }
+
+    /* Sub-list for Asia destinations */
+    .sub-destinations {
+      margin-top: 0.6rem;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .sub-destinations li {
+      font-size: 1rem;
+      color: #bbb;
+      padding: 0.3rem 0;
+      position: relative;
+      padding-left: 1.2rem;
+    }
+
+    .sub-destinations li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #c084fc;
+      opacity: 0.5;
+    }
+
+    /* Mobile */
+    @media (max-width: 640px) {
+      header h1 { font-size: 1.8rem; }
+      .timeline-wrapper { padding: 0 1rem 4rem; }
+
+      .region-section {
+        flex-direction: column;
+      }
+
+      .region-label {
+        width: 100%;
+        position: sticky;
+        top: 0;
+        background: #0f0f0f;
+        padding: 1rem 0 0.5rem;
+        z-index: 10;
+      }
+
+      .region-label h2 {
+        font-size: 1.6rem;
+      }
+
+      .entries {
+        padding-left: 2rem;
+      }
+
+      .entries::before {
+        left: 0;
+      }
+
+      .entry::before {
+        left: -2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>The Grins' World Tour</h1>
+  </header>
+
+  <div class="timeline-wrapper">
+
+    <!-- ===== EUROPE ===== -->
+    <div class="region-section region-europe">
+      <div class="region-label">
+        <h2>Europe</h2>
+        <div class="dates-range">Jun &ndash; Oct 2025</div>
+      </div>
+      <div class="entries">
+        <div class="entry">
+          <div class="dates">Jun 25 &ndash; 27</div>
+          <div class="title">Dublin, Ireland</div>
+        </div>
+        <div class="entry">
+          <div class="dates">Jun 28 &ndash; Jul 4</div>
+          <div class="title">Ultimate Frisbee Worlds</div>
+          <div class="subtitle">Nottingham, England</div>
+        </div>
+        <div class="entry">
+          <div class="dates">Jul 4 &ndash; 11</div>
+          <div class="title">London</div>
+          <div class="subtitle">England</div>
+        </div>
+        <div class="entry">
+          <div class="dates">Jul 11 &ndash; 18</div>
+          <div class="title">Barcelona</div>
+          <div class="subtitle">Spain</div>
+        </div>
+        <div class="entry">
+          <div class="dates">Jul 19 &ndash; 25</div>
+          <div class="title">Family Week @ Casa Tilo</div>
+          <div class="subtitle">near Barcelona, Spain</div>
+        </div>
+        <div class="entry">
+          <div class="dates">Jul 26 &ndash; 31</div>
+          <div class="title">Chill Week @ Casa Tilo</div>
+          <div class="subtitle">near Barcelona, Spain</div>
+        </div>
+        <div class="entry">
+          <div class="dates">August</div>
+          <div class="title">Traditional Dream Factory</div>
+          <div class="subtitle">Portugal</div>
+        </div>
+        <div class="entry">
+          <div class="dates">September</div>
+          <div class="title">Re:Village</div>
+          <div class="subtitle">France</div>
+        </div>
+        <div class="entry unknown">
+          <div class="dates">October</div>
+          <div class="title">TBD</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CENTRAL AMERICA ===== -->
+    <div class="region-section region-central-america">
+      <div class="region-label">
+        <h2>Central America</h2>
+        <div class="dates-range">Nov &ndash; Dec 2025</div>
+      </div>
+      <div class="entries">
+        <div class="entry">
+          <div class="dates">November &ndash; December</div>
+          <div class="title">Costa Rica</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ASIA ===== -->
+    <div class="region-section region-asia">
+      <div class="region-label">
+        <h2>Asia</h2>
+        <div class="dates-range">Jan &ndash; Apr 2026</div>
+      </div>
+      <div class="entries">
+        <div class="entry">
+          <div class="dates">January &ndash; April 2026</div>
+          <div class="title">Traveling Village</div>
+          <ul class="sub-destinations">
+            <li>Chiang Mai</li>
+            <li>Network School</li>
+            <li>Japan</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
